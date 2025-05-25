@@ -74,14 +74,18 @@ router.get("/:listId", async (req: Request<TodoListPathParams>, res) => {
  */
 router.put("/:listId", async (req: Request<TodoListPathParams, unknown, TodoList>, res) => {
     try {
-        const list: TodoList = {
-            ...req.body,
-            id: req.params.listId
+        const list: Partial<TodoList> = {
+            name: req.body.name, // Include only expected fields
+            description: req.body.description // Add other fields as needed
         };
 
-        await TodoListModel.validate(list);
+        await TodoListModel.validate({ ...list, id: req.params.listId });
         const updated = await TodoListModel
-            .findOneAndUpdate({ _id: list.id }, list, { new: true })
+            .findOneAndUpdate(
+                { _id: req.params.listId },
+                { $set: list }, // Use $set operator for safe updates
+                { new: true }
+            )
             .orFail()
             .exec();
 
