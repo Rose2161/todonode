@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fluentui/react": "^8.120.9",
+    "@fluentui/react": "^8.122.16",
     "@microsoft/applicationinsights-react-js": "^3.3.4",
     "@microsoft/applicationinsights-web": "^2.8.18",
     "axios": "^1.7.8",
